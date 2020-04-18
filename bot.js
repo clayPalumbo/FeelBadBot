@@ -14,9 +14,9 @@ var bot = new Discord.Client({
 });
 console.log("Bot is running!");
 console.log(bot);
-insultArray = ['Lmao, literally all your friends have jobs. PATHETIC', 'Well if it makes you feel better I have 2 degrees', "Wow, I really don't have time for this due to the job I have"]
+const insultArray = ['Lmao, literally all your friends have jobs. PATHETIC', 'Well if it makes you feel better I have 2 degrees', "Wow, I really don't have time for this due to the job I have"]
 const insultGenerator = () => {
-    return insultArray[Math.floor(Math.random() * 3)]
+    return insultArray[Math.floor(Math.random() * insultArray.length)]
 }
 bot.on('ready', function (evt) {
     console.log("Connected");
