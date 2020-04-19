@@ -65,7 +65,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             }); 
         }
      }
-     if (message.substring(0, 1) !== '$' && message.includes("josh")) {
+     if (message.substring(0, 1) !== '$' && message.toLowerCase().includes("josh")) {
         let image = imageGenerator();
 
         bot.sendMessage({
