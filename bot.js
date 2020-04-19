@@ -22,6 +22,7 @@ const insultGenerator = () => {
 const imageGenerator = () => {
     return joshPics[Math.floor(Math.random() * joshPics.length)]
 }
+
 bot.on('ready', function (evt) {
     console.log("Connected");
     logger.info('Connected');
@@ -29,48 +30,60 @@ bot.on('ready', function (evt) {
     logger.info(bot.username + ' - (' + bot.id + ')');
 });
 bot.on('message', function (user, userID, channelID, message, evt) {
-    // Our bot needs to know if it will execute a command
-    // It will listen for messages that will start with `!`
-    if (message.substring(0, 1) == '$') {
-        var args = message.substring(1).split(' ');
-        let wordCount = 0;
-        let insult = insultGenerator();
-        args.forEach(arg => {
-            if (arg == "lost") {
-                wordCount++
-            }
-            if (arg == "job") {
-                wordCount++
-            }
-        })
-        if (message.substring(1) === "help") {
-            bot.sendMessage({
-                to: channelID,
-                message: "Talk to me, I am Joshua Altier:\n - is josh bad at cod? \n - Let me know you lost your job\n - Mention my name at anytime\n - P.S. make sure to add a '$' before your message\n\n Example: $ Bad news, I lost my job "
-            }); 
-        }
 
-
-        if (message.substring(1) === "is josh bad at cod?") {
-            bot.sendMessage({
-                to: channelID,
-                message: "How dare you say that, I am a true gamer"
-            }); 
-        }
-
-        if (wordCount >= 2) {
-            bot.sendMessage({
-                to: channelID,
-                message: insult
-            }); 
-        }
-     }
-     if (message.substring(0, 1) !== '$' && message.toLowerCase().includes("josh")) {
-        let image = imageGenerator();
-
+    const chatBot = (message) => {
         bot.sendMessage({
             to: channelID,
-            message: image
+            message: message
         }); 
+    }
+
+    let newMessage = message.toLowerCase();
+
+    if (newMessage.substring(0, 1) == '$') {
+        let insult = insultGenerator();
+
+        if (newMessage.substring(1) === "help") {
+            const message = `Talk to me, I am Joshua Altier:\n 
+            - $ Ask me if I am bad at cod\n 
+            - $ Let me know you lost your job\n 
+            - Say my name\n 
+            - P.S. make sure to add a '$' before your message so I can see it\n
+            Example: $ Bad news, I lost my job `
+
+            chatBot(message);
+        }
+
+        if (newMessage.includes("bad") && (newMessage.includes("call of duty") || newMessage.includes("cod"))) {
+            const message = "How dare you say that, I am a true gamer";
+            chatBot(message);
+        }
+
+        if (newMessage.includes("lost") && newMessage.includes("job")) {
+            chatBot(insult);
+        }
+
+        if (newMessage.includes("nipple")) {
+            const message = "She had nice nipples";
+            chatBot(message);
+         }
+         if (newMessage.includes("josh") && newMessage.includes("racist")) {
+            const message = "I don't have the link currently";
+            chatBot(message);
+         }
      }
+     if (newMessage.includes("josh")) {
+        const image = imageGenerator();
+        chatBot(image);
+     }
+
+     if (newMessage.includes("swag")) {
+        const message = "A suh dude";
+        chatBot(message);
+     }
+
+    //  if (!run) {
+    //      const message = "Honestly no clue what you are asking me man";
+    //      chatBot(message);
+    //  }
 });
