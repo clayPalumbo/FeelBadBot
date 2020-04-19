@@ -13,7 +13,6 @@ var bot = new Discord.Client({
    autorun: true
 });
 console.log("Bot is running!");
-console.log(bot);
 const insultArray = ['Lmao, literally all your friends have jobs. PATHETIC', 'Well if it makes you feel better I have 2 degrees', "Wow, I really don't have time for this due to the job I have"]
 const joshPics = ["https://imgur.com/a/JkVsssb","https://imgur.com/a/FhvI5rS","https://imgur.com/a/waPALe3","https://imgur.com/a/pBBs6OI","https://imgur.com/JBN7D3r","https://imgur.com/ok9A7WU","https://imgur.com/y1FwxuL","https://imgur.com/WJhJzaz","https://imgur.com/9oMfDgI","https://imgur.com/MMuOvRx","https://imgur.com/o8jnHDj","https://imgur.com/LmJQjSo","https://imgur.com/CEzG6cu","https://imgur.com/tuAp3ee","https://imgur.com/5uDPNQ5","https://imgur.com/ayiqPo5","https://imgur.com/ks4Qj9E","https://imgur.com/S9sJu3e","https://imgur.com/bXuBfzc","https://imgur.com/jl7Lfnk","https://imgur.com/bBmNTHp","https://imgur.com/QzMDEj1","https://imgur.com/TYYDg2v","https://imgur.com/gWx13Cn","https://imgur.com/pMUdger","https://imgur.com/wSgex21","https://imgur.com/7bAZzfA","https://imgur.com/F7tK1MW","https://imgur.com/kp8oL2A","https://imgur.com/lnFN6F9","https://imgur.com/H7Ygk0V","https://imgur.com/uNeg4WH"]
 const insultGenerator = () => {
@@ -24,7 +23,6 @@ const imageGenerator = () => {
 }
 
 bot.on('ready', function (evt) {
-    console.log("Connected");
     logger.info('Connected');
     logger.info('Logged in as: ');
     logger.info(bot.username + ' - (' + bot.id + ')');
@@ -80,9 +78,4 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         const message = `${user} grow up dude...`;
         chatBot(message);
      }
-
-    //  if (!run) {
-    //      const message = "Honestly no clue what you are asking me man";
-    //      chatBot(message);
-    //  }
 });
