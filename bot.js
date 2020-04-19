@@ -30,7 +30,6 @@ bot.on('ready', function (evt) {
     logger.info(bot.username + ' - (' + bot.id + ')');
 });
 bot.on('message', function (user, userID, channelID, message, evt) {
-
     const chatBot = (message) => {
         bot.sendMessage({
             to: channelID,
@@ -55,7 +54,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         }
 
         if (newMessage.includes("bad") && (newMessage.includes("call of duty") || newMessage.includes("cod"))) {
-            const message = "How dare you say that, I am a true gamer";
+            const message = `Listen here ${user}, I am a true gamer`;
             chatBot(message);
         }
 
@@ -64,11 +63,11 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         }
 
         if (newMessage.includes("nipple")) {
-            const message = "She had nice nipples";
+            const message = `${user} suck me`;
             chatBot(message);
          }
          if (newMessage.includes("josh") && newMessage.includes("racist")) {
-            const message = "I don't have the link currently";
+            const message = `Nope I will not answer that`;
             chatBot(message);
          }
      }
@@ -78,7 +77,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
      }
 
      if (newMessage.includes("swag")) {
-        const message = "A suh dude";
+        const message = `${user} grow up dude...`;
         chatBot(message);
      }
 
