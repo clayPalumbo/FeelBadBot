@@ -36,7 +36,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     }
 
     let newMessage = message.toLowerCase();
-    if (user === "ethanp") {
+    if (user === "ethanp" && newMessage.substring(0, 1) == '$') {
         const message = "Ethan is gay"
         chatBot(message);
     }
