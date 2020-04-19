@@ -37,15 +37,21 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     }
 
     let newMessage = message.toLowerCase();
+    if (newMessage.substring(0, 2) == '*d' ) {
+       const amount = Number(newMessage.substring(2));
+       const number = Math.floor(Math.random() * amount);
+       const response = "```# " + number + "\n" + "Details: d" + amount + " (" + number + ")" + "```"
+       chatBot(response);
+    }
     if (newMessage.substring(0, 1) == '$') {
         let insult = insultGenerator();
 
         if (newMessage.substring(1) === "help") {
-            const message = `Talk to me, I am Joshua Altier:\n 
-            - $ Ask me if I am bad at cod\n 
-            - $ Let me know you lost your job\n 
-            - Say my name\n 
-            - P.S. make sure to add a '$' before your message so I can see it\n
+            const message = `Talk to me, I am Joshua Altier:\n
+            - $ Ask me if I am bad at cod
+            - $ Let me know you lost your job
+            - Say my name
+            - P.S. make sure to add a '$' before your message so I can see it
             Example: $ Bad news, I lost my job `
 
             chatBot(message);
