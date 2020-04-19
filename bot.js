@@ -51,7 +51,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             chatBot(message);
         }
 
-        if (newMessage.includes("am i gay")) {
+        if (newMessage.includes("gay") && (newMessage.includes("is" || newMessage.includes("am")))) {
             const message = gayArray[Math.floor(Math.random() * 2)]
             chatBot(message);
         }
