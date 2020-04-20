@@ -69,7 +69,7 @@ bot.on('ready', function (evt) {
 });
 bot.on('message', function (user, userID, channelID, message, evt) {
     logger.info('Running');
-
+    logger.info(channelID);
     const chatBot = (message) => {
         bot.sendMessage({
             to: channelID,
