@@ -39,7 +39,7 @@ const diceGenerator = (num) => {
 }
 
 bot.on('ready', function (evt) {
-    const channelId = "691099286171156544"
+    const channelId = "535290786619719683"
     logger.info('Connected');
     logger.info('Logged in as: ');
     logger.info(bot.username + ' - (' + bot.id + ')');
@@ -68,8 +68,6 @@ bot.on('ready', function (evt) {
      
 });
 bot.on('message', function (user, userID, channelID, message, evt) {
-    logger.info('Running');
-    logger.info(channelID);
     const chatBot = (message) => {
         bot.sendMessage({
             to: channelID,
