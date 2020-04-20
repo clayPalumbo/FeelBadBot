@@ -43,28 +43,28 @@ bot.on('ready', function (evt) {
     logger.info('Connected');
     logger.info('Logged in as: ');
     logger.info(bot.username + ' - (' + bot.id + ')');
-    // bot.sendMessage({
-    //     to: channelId,
-    //     message: "Beep Boop"
-    // }); 
-    // setTimeout(function(){
-    //     bot.sendMessage({
-    //         to: channelId,
-    //         message: "You have laughed"
-    //     });
-    // }, 5000);
-    // setTimeout(function(){
-    //     bot.sendMessage({
-    //         to: channelId,
-    //         message: "Now it is my turn"
-    //     });
-    // }, 10000);
-    // setTimeout(function(){
-    //     bot.sendMessage({
-    //         to: channelId,
-    //         message: "Josh"
-    //     });
-    // }, 12000);
+    bot.sendMessage({
+        to: channelId,
+        message: "Beep Boop"
+    }); 
+    setTimeout(function(){
+        bot.sendMessage({
+            to: channelId,
+            message: "You have laughed"
+        });
+    }, 5000);
+    setTimeout(function(){
+        bot.sendMessage({
+            to: channelId,
+            message: "Now it is my turn"
+        });
+    }, 10000);
+    setTimeout(function(){
+        bot.sendMessage({
+            to: channelId,
+            message: "Josh"
+        });
+    }, 12000);
      
 });
 bot.on('message', function (user, userID, channelID, message, evt) {
