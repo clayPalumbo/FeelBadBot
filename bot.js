@@ -64,12 +64,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
         if (newMessage.substring(1) === "help") {
             const message = `Talk to me, I am Joshua Altier:\n
-            - $ Ask me if I am bad at cod
-            - $ Let me know you lost your job
-            - Say my name
-            - P.S. make sure to add a '$' before your message so I can see it
-            Example: $ Bad news, I lost my job `
-
+            - Say my name`
             chatBot(message);
         }
 
@@ -77,24 +72,6 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             const message = gayArray[Math.floor(Math.random() * 2)]
             chatBot(message);
         }
-
-        if (newMessage.includes("bad") && (newMessage.includes("call of duty") || newMessage.includes("cod"))) {
-            const message = `Listen here ${user}, I am a true gamer`;
-            chatBot(message);
-        }
-
-        if (newMessage.includes("lost") && newMessage.includes("job")) {
-            chatBot(insult);
-        }
-
-        if (newMessage.includes("nipple")) {
-            const message = `${user} suck me`;
-            chatBot(message);
-         }
-         if (newMessage.includes("josh") && newMessage.includes("racist")) {
-            const message = `${user} is a rapist`;
-            chatBot(message);
-         }
      }
      if (newMessage.includes("rat")) {
         const image = imageGenerator();
