@@ -74,8 +74,13 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             message: message
         }); 
     }
-
     let newMessage = message.toLowerCase();
+
+    if ( newMessage.includes("https://cdn.discordapp.com")) {
+        console.log(newMessage)
+    allPics.push(newMessage);
+    }
+
 
     if (newMessage.substring(0, 2) == '$d' ) {
        const response = diceGenerator(newMessage.substring(2));
