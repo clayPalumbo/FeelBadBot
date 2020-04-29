@@ -122,7 +122,6 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                     if (error) throw error;
                     chatBot("Josh bot now stores " + res.insertId + " images");
                     logger.info("Josh bot now stores " + res.insertId + " images");
-                    connection.end();
                 });
         }
     }
