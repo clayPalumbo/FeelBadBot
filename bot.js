@@ -121,6 +121,9 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 sql, function (error, res) {
                     if (error) throw error;
                     chatBot("Josh bot now stores " + res.insertId + " images");
+                    if (res.insertId === 150) {
+                        chatBot(`Are you guys serious, 150 images? ${user}, you are paying for my cloud fees`)
+                    }
                     logger.info("Josh bot now stores " + res.insertId + " images");
                 });
         }
