@@ -88,10 +88,6 @@ bot.on('ready', function (evt) {
     logger.info('Connected');
     logger.info('Logged in as: ');
     logger.info(bot.username + ' - (' + bot.id + ')');
-    bot.sendMessage({
-        to: channelId,
-        message: "Had to remove 'add rat' feature for now until I figure out why it randomly disconnects"
-    })
 });
 bot.on('message', function (user, userID, channelID, message, evt) {
     const chatBot = (message) => {
