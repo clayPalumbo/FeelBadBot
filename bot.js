@@ -15,6 +15,8 @@ var bot = new Discord.Client({
     autorun: true
 });
 
+const channelId = "535290786619719683"
+
 var connection = mysql.createConnection({
     host: process.env.MYSQL_HOST,
     user: process.env.MYSQL_USER,
@@ -31,7 +33,9 @@ const selectAll = `SELECT * FROM josh_images`;
 connection.query(
     selectAll, function (error, res) {
         if (error) throw error;
-        allPics.push(...res);
+        const newData = res.map(result => result.josh_image_url)
+        allPics.push(...newData);
+        connection.end();
     }
 )
 
@@ -70,7 +74,8 @@ const joshPics = [
     "https://imgur.com/uNeg4WH"
 ];
 const imageGenerator = () => {
-    return allPics[Math.floor(Math.random() * allPics.length)].josh_image_url
+    console.log(allPics.length);
+    return allPics[Math.floor(Math.random() * allPics.length)];
 }
 
 const diceGenerator = (num) => {
@@ -80,10 +85,13 @@ const diceGenerator = (num) => {
 }
 
 bot.on('ready', function (evt) {
-    const channelId = "535290786619719683"
     logger.info('Connected');
     logger.info('Logged in as: ');
     logger.info(bot.username + ' - (' + bot.id + ')');
+    bot.sendMessage({
+        to: channelId,
+        message: "Had to remove 'add rat' feature for now until I figure out why it randomly disconnects"
+    })
 });
 bot.on('message', function (user, userID, channelID, message, evt) {
     const chatBot = (message) => {
@@ -112,23 +120,24 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             chatBot(image);
         }, 3000);
     }
-    if (newMessage.includes("add rat") && newMessage.includes("http") && newMessage.split(" ").length === 3) {
-        const regex = "(https?:\/\/[^\s]+)";
-        const parseLink = newMessage.split(" ").find(text => text.match(regex));
-        if (parseLink) {
-            const sql = `INSERT INTO josh_images (josh_image_url) VALUES ("${parseLink}");`
-            connection.query(
-                sql, function (error, res) {
-                    if (error) throw error;
-                    chatBot("Josh bot now stores " + res.insertId + " images");
-                    if (res.insertId === 125) {
-                        chatBot(`Dude really 125 images ${user}, go outside and get a life`)
-                    }
-                    if (res.insertId === 150) {
-                        chatBot(`Are you guys serious, 150 images? ${user}, you are paying for my cloud fees`)
-                    }
-                    logger.info("Josh bot now stores " + res.insertId + " images");
-                });
-        }
-    }
+    // if (newMessage.includes("add rat") && newMessage.includes("http") && newMessage.split(" ").length === 3) {
+    //     const regex = "(https?:\/\/[^\s]+)";
+    //     const parseLink = newMessage.split(" ").find(text => text.match(regex));
+    //     if (parseLink) {
+    //         const sql = `INSERT INTO josh_images (josh_image_url) VALUES ("${parseLink}");`
+    //         connection.query(
+    //             sql, function (error, res) {
+    //                 if (error) throw error;
+    //                 chatBot("Josh bot now stores " + res.insertId + " images");
+    //                 if (res.insertId === 125) {
+    //                     chatBot(`Dude really 125 images ${user}, go outside and get a life`)
+    //                 }
+    //                 if (res.insertId === 150) {
+    //                     chatBot(`Are you guys serious, 150 images? ${user}, you are paying for my cloud fees`)
+    //                 }
+    //                 logger.info("Josh bot now stores " + res.insertId + " images");
+    //                 connection.end();
+    //             });
+    //     }
+    // }
 });
