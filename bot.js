@@ -1,6 +1,9 @@
 var Discord = require('discord.io');
 var logger = require('winston');
 var mysql = require('mysql');
+var checkWord = require('check-word');
+
+const isItReal = checkWord('en');
 
 require('dotenv').config()
 // Configure logger settings
@@ -56,6 +59,22 @@ const diceGenerator = (num) => {
     return "```# " + selectedNumber + "\n" + "Details: d" + num + " (" + selectedNumber + ")" + "```";
 }
 
+const arraysEqual = (a,b) => {
+    if (a.length === b.length) {
+        return a.filter((val, i) => val === b[i]).length === a.length;
+    } else {
+        return false;
+    }
+}
+
+const new_count = (word) => {
+    word = word.toLowerCase();                                     
+    if(word.length <= 3) { return 1; }                             
+      word = word.replace(/(?:[^laeiouy]es|ed|[^laeiouy]e)$/, '');   
+      word = word.replace(/^y/, '');                                 
+      return word.match(/[aeiouy]{1,2}/g);                    
+  }
+
 bot.on('ready', function (evt) {
     logger.info('Connected');
     logger.info('Logged in as: ');
@@ -81,6 +100,69 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             - Say rat`
             chatBot(message);
         }
+    }
+    if(newMessage.includes("joshbot")) {
+        const messageArr = newMessage.split("joshbot").pop().trim().split(" ");
+        const vowelRegex = /[aeiouy]/gi;
+        const startOfMessage = "Don't you mean "
+        const bothConstFirstLetter = [1,1];
+        const constFirstLetter = [1,0];
+        const vowelFirstLetter = [0,1];
+        let newMessageArr = [];
+        // find vowel in first 3 letters
+        // depending on vowel placement and whether or not both words start with consonant will decide how this is handled
+        if (messageArr.length === 2) {
+            const vowelIndex = messageArr.map(word => {
+                return word.split("").findIndex(element => element.match(vowelRegex));
+            })
+            logger.info(messageArr, vowelIndex);
+
+            if (arraysEqual(vowelIndex, bothConstFirstLetter)) {
+                newMessageArr.push(messageArr[1][0] + messageArr[0].substring(1));
+                newMessageArr.push(messageArr[1] = messageArr[0][0] + messageArr[1].substring(1));
+                chatBot(startOfMessage + newMessageArr.join(" "));
+            }
+            if (arraysEqual(vowelIndex, constFirstLetter)) {
+                newMessageArr.push(messageArr[0].substring(1));
+                newMessageArr.push(messageArr[0][0] + messageArr[1]);
+                chatBot(startOfMessage + newMessageArr.join(" "));
+            }
+            if (arraysEqual(vowelIndex, vowelFirstLetter)) {
+                newMessageArr.push(messageArr[1][0] + messageArr[0]);
+                newMessageArr.push(messageArr[1].substring(1));
+                chatBot(startOfMessage + newMessageArr.join(" "));
+            }     
+            if (arraysEqual(vowelIndex, [0,2])) {
+                newMessageArr.push(messageArr[1].slice(0,2) + messageArr[0]);
+                newMessageArr.push(messageArr[1].slice(2));
+                chatBot(startOfMessage + newMessageArr.join(" "));
+            }   
+            if (arraysEqual(vowelIndex, [2,0])) {
+                newMessageArr.push(messageArr[0].slice(2));
+                newMessageArr.push(messageArr[0].slice(0,2) + messageArr[1]);
+                chatBot(startOfMessage + newMessageArr.join(" "));
+            } 
+            if (arraysEqual(vowelIndex, [2,2])) {
+                newMessageArr.push(messageArr[1].slice(0,2) + messageArr[0].slice(2));
+                newMessageArr.push(messageArr[0].slice(0,2) + messageArr[1].slice(2));
+                chatBot(startOfMessage + newMessageArr.join(" "));
+            } 
+        } 
+        // else if (!messageArr.every(word => {
+        //     isItReal.check(word)
+        //     //add list of peoples names in discord
+        // })) {
+        //     chatBot("learn to spell idiot")
+        // } 
+        else {
+            chatBot("Only can handle two words right now")
+        }
+
+        // if word starts with vowel take other word starting with consonant
+        
+        // if more than 3 words starting with consonant randomize
+
+        // 
     }
     if (newMessage.includes("rat") && !newMessage.includes("add rat")) {
         const image = imageGenerator();

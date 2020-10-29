@@ -8,6 +8,7 @@
         "start": "node bot.js"
     },
     "dependencies": {
+        "check-word": "^1.1.0",
         "discord.io": "https://github.com/woor/discord.io/tarball/gateway_v6",
         "dotenv": "^8.2.0",
         "mysql": "^2.18.1",
