@@ -56,7 +56,7 @@ const diceGenerator = (num) => {
         }
     })
     const selectedNumber = Math.floor(Math.random() * newNum);
-    return "```# " + selectedNumber + "\n" + "Details: d" + num + " (" + selectedNumber + ")" + "```";
+    return "```# " + (selectedNumber + 1) + "\n" + "Details: d" + num + " (" + (selectedNumber + 1) + ")" + "```";
 }
 
 const arraysEqual = (a,b) => {
@@ -66,14 +66,6 @@ const arraysEqual = (a,b) => {
         return false;
     }
 }
-
-const new_count = (word) => {
-    word = word.toLowerCase();                                     
-    if(word.length <= 3) { return 1; }                             
-      word = word.replace(/(?:[^laeiouy]es|ed|[^laeiouy]e)$/, '');   
-      word = word.replace(/^y/, '');                                 
-      return word.match(/[aeiouy]{1,2}/g);                    
-  }
 
 bot.on('ready', function (evt) {
     logger.info('Connected');
@@ -96,8 +88,10 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
     if (newMessage.substring(0, 1) == '$') {
         if (newMessage.substring(1) === "help") {
-            const message = `Talk to me, I am Joshua Altier:\n
-            - Say rat`
+            const message = "```" + `Talk to me, I am Joshua Altier:\n
+            * Say rat\n
+            * Say two words after joshbot\n
+              Example: joshbot ebitda diddy \n` + "```"
             chatBot(message);
         }
     }
