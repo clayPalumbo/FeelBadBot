@@ -110,7 +110,11 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 return word.split("").findIndex(element => element.match(vowelRegex));
             })
             logger.info(messageArr, vowelIndex);
-
+            if (arraysEqual(vowelIndex, [0,0])) {
+                newMessageArr.push(messageArr[1][0] + messageArr[0].substring(1));
+                newMessageArr.push(messageArr[1] = messageArr[0][0] + messageArr[1].substring(1));
+                chatBot("Dude words like this don't work");
+            }
             if (arraysEqual(vowelIndex, bothConstFirstLetter)) {
                 newMessageArr.push(messageArr[1][0] + messageArr[0].substring(1));
                 newMessageArr.push(messageArr[1] = messageArr[0][0] + messageArr[1].substring(1));
