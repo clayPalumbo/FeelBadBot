@@ -131,6 +131,16 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 newMessageArr.push(messageArr[1].slice(2));
                 chatBot(startOfMessage + newMessageArr.join(" "));
             }   
+            if (arraysEqual(vowelIndex, [1,2])) {
+                newMessageArr.push(messageArr[1].slice(0,2) + messageArr[0].slice(1));
+                newMessageArr.push(messageArr[0].slice(0,1) + messageArr[1].slice(2));
+                chatBot(startOfMessage + newMessageArr.join(" "));
+            }
+            if (arraysEqual(vowelIndex, [2,1])) {
+                newMessageArr.push(messageArr[1].slice(0,1) + messageArr[0].slice(2));
+                newMessageArr.push(messageArr[0].slice(0,2) + messageArr[1].slice(1));
+                chatBot(startOfMessage + newMessageArr.join(" "));
+            }
             if (arraysEqual(vowelIndex, [2,0])) {
                 newMessageArr.push(messageArr[0].slice(2));
                 newMessageArr.push(messageArr[0].slice(0,2) + messageArr[1]);
