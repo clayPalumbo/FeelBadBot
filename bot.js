@@ -155,6 +155,41 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 newMessageArr.push(messageArr[0].slice(0,2) + messageArr[1].slice(2));
                 chatBot(startOfMessage + newMessageArr.join(" "));
             } 
+            if (arraysEqual(vowelIndex, [0,3])) {
+                newMessageArr.push(messageArr[1].slice(0,3) + messageArr[0]);
+                newMessageArr.push(messageArr[1].slice(3));
+                chatBot(startOfMessage + newMessageArr.join(" "));
+            }
+            if (arraysEqual(vowelIndex, [1,3])) {
+                newMessageArr.push(messageArr[1].slice(0,3) + messageArr[0].slice(1));
+                newMessageArr.push(messageArr[0].slice(0, 1) + messageArr[1].slice(3));
+                chatBot(startOfMessage + newMessageArr.join(" "));
+            }    
+            if (arraysEqual(vowelIndex, [2,3])) {
+                newMessageArr.push(messageArr[1].slice(0,3) + messageArr[0].slice(2));
+                newMessageArr.push(messageArr[0].slice(0,2) + messageArr[1].slice(3));
+                chatBot(startOfMessage + newMessageArr.join(" "));
+            }    
+            if (arraysEqual(vowelIndex, [3,3])) {
+                newMessageArr.push(messageArr[1].slice(0,3) + messageArr[0].slice(3));
+                newMessageArr.push(messageArr[0].slice(0,3) + messageArr[1].slice(3));
+                chatBot(startOfMessage + newMessageArr.join(" "));
+            }    
+            if (arraysEqual(vowelIndex, [3,2])) {
+                newMessageArr.push(messageArr[1].slice(0,2) + messageArr[0].slice(3));
+                newMessageArr.push(messageArr[0].slice(0,3) + messageArr[1].slice(2));
+                chatBot(startOfMessage + newMessageArr.join(" "));
+            }    
+            if (arraysEqual(vowelIndex, [3,1])) {
+                newMessageArr.push(messageArr[1].slice(0,1) + messageArr[0].slice(3));
+                newMessageArr.push(messageArr[0].slice(0,3) + messageArr[1].slice(1));
+                chatBot(startOfMessage + newMessageArr.join(" "));
+            }    
+            if (arraysEqual(vowelIndex, [3,0])) {
+                newMessageArr.push(messageArr[0].slice(3));
+                newMessageArr.push(messageArr[0].slice(0,3) + messageArr[1]);
+                chatBot(startOfMessage + newMessageArr.join(" "));
+            }             
         } 
         // else if (!messageArr.every(word => {
         //     isItReal.check(word)
