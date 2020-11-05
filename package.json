@@ -5,7 +5,7 @@
     "main": "bot.js",
     "author": "Clay Palumbo",
     "scripts": {
-        "start": "node bot.js"
+        "start": "node bot.ts"
     },
     "dependencies": {
         "check-word": "^1.1.0",

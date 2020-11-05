@@ -1,9 +1,7 @@
 var Discord = require('discord.io');
 var logger = require('winston');
 var mysql = require('mysql');
-var checkWord = require('check-word');
-
-const isItReal = checkWord('en');
+var {arraysEqual, diceGenerator, imageGenerator } = require("./bot.service.ts");
 
 require('dotenv').config()
 // Configure logger settings
@@ -31,6 +29,9 @@ connection.connect();
 
 let allPics = [];
 
+let wordCount = 0;
+let firstTime = true;
+
 const selectAll = `SELECT * FROM josh_images`;
 
 connection.query(
@@ -42,30 +43,13 @@ connection.query(
     }
 )
 
-const imageGenerator = () => {
-    console.log(allPics.length);
-    return allPics[Math.floor(Math.random() * allPics.length)];
-}
+const resetWordCount = () => {
+    wordCount = 0;
+    firstTime = true;
+    console.log("Reset timer")
+};
 
-const diceGenerator = (num) => {
-    let newNum = 0;
-    const numArr = num.split(" ");
-    numArr.map(num => {
-        if (Number.isInteger(Number(num))) {
-            newNum += Number(num);
-        }
-    })
-    const selectedNumber = Math.floor(Math.random() * newNum);
-    return "```# " + (selectedNumber + 1) + "\n" + "Details: d" + num + " (" + (selectedNumber + 1) + ")" + "```";
-}
-
-const arraysEqual = (a,b) => {
-    if (a.length === b.length) {
-        return a.filter((val, i) => val === b[i]).length === a.length;
-    } else {
-        return false;
-    }
-}
+setInterval(resetWordCount, 1000 * 60)
 
 bot.on('ready', function (evt) {
     logger.info('Connected');
@@ -80,18 +64,27 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         });
     }
     let newMessage = message.toLowerCase();
+    wordCount++
+
 
     if (newMessage.substring(0, 2) == '$d') {
         const response = diceGenerator(newMessage.substring(2));
         chatBot(response);
     }
 
+    if (wordCount >= 10 && firstTime) {
+        chatBot("Hey " + user + " how was your day?");
+        firstTime = false;
+    }
+
     if (newMessage.substring(0, 1) == '$') {
         if (newMessage.substring(1) === "help") {
             const message = "```" + `Talk to me, I am Joshua Altier:\n
             * Say rat\n
+            * To use the dice feature use $d and then the number next to it\n
+            * Example: $d20\n
             * Say two words after joshbot\n
-              Example: joshbot ebitda diddy \n` + "```"
+              Example: joshbot ebitda diddy \n` + "```";
             chatBot(message);
         }
     }
@@ -103,8 +96,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         const constFirstLetter = [1,0];
         const vowelFirstLetter = [0,1];
         let newMessageArr = [];
-        // find vowel in first 3 letters
-        // depending on vowel placement and whether or not both words start with consonant will decide how this is handled
+
         if (messageArr.length === 2) {
             const vowelIndex = messageArr.map(word => {
                 return word.split("").findIndex(element => element.match(vowelRegex));
@@ -191,24 +183,12 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 chatBot(startOfMessage + newMessageArr.join(" "));
             }             
         } 
-        // else if (!messageArr.every(word => {
-        //     isItReal.check(word)
-        //     //add list of peoples names in discord
-        // })) {
-        //     chatBot("learn to spell idiot")
-        // } 
         else {
             chatBot("Only can handle two words right now")
         }
-
-        // if word starts with vowel take other word starting with consonant
-        
-        // if more than 3 words starting with consonant randomize
-
-        // 
     }
     if (newMessage.includes("rat") && !newMessage.includes("add rat")) {
-        const image = imageGenerator();
+        const image = imageGenerator(allPics);
         setTimeout(() => {
             chatBot(image);
         }, 3000);
