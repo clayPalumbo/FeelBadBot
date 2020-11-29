@@ -6,9 +6,6 @@ var {arraysEqual, diceGenerator, imageGenerator } = require("./bot.service.ts");
 require('dotenv').config()
 // Configure logger settings
 logger.remove(logger.transports.Console);
-logger.add(new logger.transports.Console, {
-    colorize: true
-});
 logger.level = 'debug';
 // Initialize Discord Bot
 var bot = new Discord.Client({
@@ -80,7 +77,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     if (newMessage.substring(0, 1) == '$') {
         if (newMessage.substring(1) === "help") {
             const message = "```" + `Talk to me, I am Joshua Altier:\n
-            * Say rat\n
+            * Say ape\n
             * To use the dice feature use $d and then the number next to it\n
             * Example: $d20\n
             * Say two words after joshbot\n
@@ -187,7 +184,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             chatBot("Only can handle two words right now")
         }
     }
-    if (newMessage.includes("rat") && !newMessage.includes("add rat")) {
+    if (newMessage.includes("ape") && !newMessage.includes("add rat")) {
         const image = imageGenerator(allPics);
         setTimeout(() => {
             chatBot(image);
