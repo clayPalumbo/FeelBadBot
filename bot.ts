@@ -43,7 +43,6 @@ connection.query(
 const resetWordCount = () => {
     wordCount = 0;
     firstTime = true;
-    console.log("Reset timer")
 };
 
 setInterval(resetWordCount, 1000 * 60)
